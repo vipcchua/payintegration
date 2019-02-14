@@ -300,7 +300,7 @@ public interface AliPayment {
     }
 ```
 ---
----
+
 
 #####  统一收单线下交易预创建
 ```java
@@ -323,6 +323,138 @@ public interface AliPayment {
         return wapPay;
     }
 ```
+
+---
+
+
+#####  支付宝通知信息处理
+目前只支持支付(trade_status_sync)类型的通知信息处理
+```java
+    package test;
+
+import fastpay.alipay.configure.AliPayConfigure;
+import fastpay.alipay.model.easypaymodel.model.request.trade.*;
+
+import fastpay.alipay.service.pay.service.AliPayment;
+import fastpay.alipay.service.pay.service.fsatpay.impl.AliPaymentService;
+import fastpay.alipay.service.pay.service.response.AliPayNotifyPayService;
+import org.springframework.context.annotation.Scope;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.*;
+
+/**
+ * Copyright@ vipcchua.github.io
+ * Author:Cchua
+ * Date:2019/2/14
+ */
+
+@RestController
+@Scope("prototype")
+@RequestMapping(value = "/alipay")
+
+public class AliPayNotifyUrlController {
+
+    public static int Surplus = 20;
+    // private ExecutorService executorService = Executors.newFixedThreadPool(20);
+
+
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
+
+    public void close() {
+        executor.shutdown();
+    }
+
+    void addTask(Runnable runnable) {
+        executor.execute(runnable);
+    }
+
+    <V> V addTask(Callable<V> callable) {
+        Future<V> submit = executor.submit(callable);
+        try {
+            return submit.get();
+        } catch (InterruptedException e) {
+            System.out.println("InterruptedException" + e.toString());
+        } catch (ExecutionException e) {
+            System.out.println("ExecutionException" + e.toString());
+        }
+        return null;
+    }
+
+    //   AliPayConfigure aliPayConfigure = new AliPayConfigureTodo().getConfig();
+
+
+    @RequestMapping(value = "/notifyUrl", method = RequestMethod.POST)
+    public String notifyUrl(HttpServletRequest request) {
+
+        //AliPayNotifyPayService notifyPayBusiness = new AliPayNotifyPayService(new AliPayConfigure());
+        AliPayment aliPayment = new AliPaymentService(new AliPayConfigure());
+        AccountAlipayBusiness business = aliPayment.notify(request);
+
+
+        if (business != null) {
+            /////需要预处理的操作
+            //AccountTradeOut accountTradeOut = busToTradeOut(business);
+            addTask(new Runnable() {
+                /////开启多个线程
+                @Override
+                public void run() {
+
+
+                    String trade_status = "TRADE_SUCCESS";
+
+                    if (trade_status.equals(business.getTradeStatus())) {
+
+                        try {
+
+                            /*AccountRechargeService accountRechargeService = new AccountRechargeService();
+                            accountRechargeService.alipayRecharge(accountTradeOut);*/
+/////进行自己后台的操作
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+
+            });
+
+            addTask(new Runnable() {
+                @Override
+                public void run() {
+                    /////进行自己后台的操作
+                 /*   AccountTradeOutService accountTradeOutService = new AccountTradeOutServiceImpl();
+
+                    AccountTradeOutExample example = new AccountTradeOutExample();
+
+                    AccountTradeOutExample.Criteria criteria = example.createCriteria();
+
+                    criteria.andTradeIdEqualTo(accountTradeOut.getTradeId());
+
+                    accountTradeOutService.updateByExampleSelective(accountTradeOut, example);*/
+
+
+                }
+            });
+
+
+            return "success";
+        } else {
+            return "failure";
+        }
+
+    }
+
+
+}
+
+```
+
+
 ---
 #####  下载对账单
 
