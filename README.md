@@ -1,6 +1,6 @@
-#  **欢迎使用 fastpay 快速接入支付 ** 
+#  欢迎使用 fastpay 快速接入支付 
 
-------
+---
 
     无聊写出这套东西的主要原因是，我还是学生的时候就在学校写了好多次微信、支付宝的第三方支付接入，出来工作又刚好要写微信支付宝的第三方接入，来去去都那些东西，偶尔还会遇到一些重重复复的小坑，所以这次开发干脆封装了起来！同时也很欢迎有人一起来更新这份代码，后续有时间还会加入银联和微信公众号、小程序的快速接入！
 
@@ -29,7 +29,7 @@
 
 ##  如何接入
 
-###安装
+###  安装
 
 ---
 
@@ -52,7 +52,7 @@
 ---
 
 
-###配置
+###  配置
 
 
 ---
@@ -69,7 +69,7 @@
 ---
 ##  支付宝快速接入
 
-####支付宝配置方法使用
+####  支付宝配置方法使用
 
 接入的方法有很多种 以下举例都可以进行接入 其实主要就是将AliPayment  里面传入配置文件
 
@@ -97,12 +97,12 @@
 
 ---
 
-####支付宝支付快速接入
+####  支付宝支付快速接入
 ---
 
 因为支付宝和微信其实每一步操作都是需要配置文件里面的相关信息的， ** 所以每一个操作都是要带上你的config**，当然你可以让你的配置文件持续放在内存里面这样可以有效减少让java不断去读取内存的次数，这里没有做成自动注入的主要原因还是如果项目有多个支付账户的时候，可以让用户自行决定与哪个账户发生相关操作
 
-####支付宝快速接入
+####  支付宝快速接入
 
 payment的配置注入提上方法都可以，最重要的是配置要传
 ```java
@@ -162,7 +162,7 @@ public interface AliPayment {
          在所有的AliPayment 方法 主要是支撑支付宝的快速接入 ，所有的基础方法都已经封装在AliPayment里面，更进阶的使用可以自己直接访问底层的Service层进行复杂操作，自己定义需要的Facility 传入需要相关的复杂订单参数
 
 ---
-#####支付宝-电脑网站支付
+#####  支付宝-电脑网站支付
 ```java
   /**
      * 电脑网站支付
@@ -184,7 +184,7 @@ public interface AliPayment {
 ```
 ---
 
-#####支付宝-手机支付
+#####  支付宝-手机支付
 ```java
     /**
      * 手机订单支付
@@ -206,7 +206,7 @@ public interface AliPayment {
 ```
 ---
 
-#####支付宝-退款
+#####  支付宝-退款
 
        退款需要支付宝的订单号或者是内部账号 Out_trade_no 和 trade_no只需要填写其中一个就可以了，如果有别的参数需要一起传可以把model里面的其他参数一起填上
        
@@ -248,7 +248,7 @@ public interface AliPayment {
 
 
 ---
-#####支付宝-转账
+#####  支付宝-转账
 ```java
     /**
      * 转账
@@ -275,7 +275,7 @@ public interface AliPayment {
 
 ---
 
-#####统一收单线下交易预创建
+#####  统一收单线下交易预创建
 ```java
     /**
      * 统一收单线下交易预创建 tradePrecreatePay
@@ -299,7 +299,7 @@ public interface AliPayment {
 ---
 ---
 
-#####统一收单线下交易预创建
+#####  统一收单线下交易预创建
 ```java
     /**
      * 统一收单线下交易预创建 tradePrecreatePay
@@ -321,7 +321,7 @@ public interface AliPayment {
     }
 ```
 ---
-#####下载对账单
+#####  下载对账单
 
 因为支付宝的对账单是以下载文件的形式，所以想要读取对账单需要读取支付宝下载下来的CSV文件 ，默认的bill方法中filePath  是会将CSV文件读取完成后将下载下来的CSV文件删除的 在方法  **AliPayAccountStatementService**  中提供了更多的方法让你读取、下载支付支付宝的对账单文件
 
@@ -343,13 +343,13 @@ public interface AliPayment {
 ```
 ---
 
-####支付宝三合一支付
+####  支付宝三合一支付
 ```java
     Object unifiedPayment(UnifiedPaymentModel model);
 ```
 ---
 
-#####自己封装
+#####  自己封装
    
 如果你觉得已经封装好的是一个object不好处理，当然你也可以自己进行封装
 
@@ -400,7 +400,7 @@ public interface AliPayment {
 
 ---
 
-####微信配置方法使用
+####  微信配置方法使用
 ---
 ```java
         FastPayWeChat w1 = new FastPayWeChatBuilder().build(new WechatConfigure());
@@ -419,7 +419,7 @@ public interface AliPayment {
 ```
 ---
 
-####微信快速接入
+####  微信快速接入
 微信的快速接入其实和支付宝差不多最主要的是往Payment 里面放入了配置文件， **因为每一步操作都是需要相关信息的** ，更进阶的使用可以自己直接访问底层的Service层进行复杂操作，自己定义需要的Facility 传入需要相关的复杂订单参数
 ```java
         WeChatPayment weChatPaymen 
@@ -480,7 +480,7 @@ public interface WeChatPayment {
 
 ```
 
-####微信NATIVE统一下单
+####  微信NATIVE统一下单
 ---
 ```java
     /*
@@ -503,7 +503,7 @@ public interface WeChatPayment {
 ```
 ---
 
-#####微信-账单Csv解析
+#####  微信-账单Csv解析
 ```java
     package test;
 
@@ -552,7 +552,7 @@ public class WeChatBillTest {
 
 ```
 
-#####微信与支付宝（当面付）同订单二维码支付生成
+#####  微信与支付宝（当面付）同订单二维码支付生成
 ```java
     AliPayment aliPayment = new AliPaymentService(new AliPayConfigure());
     aliPayment.tradePrecreatePay(AliPayTradePrecreatePayModel tradePrecreatePayModel);
