@@ -104,10 +104,13 @@
 
 ####  支付宝快速接入
 
-payment的配置注入提上方法都可以，最重要的是配置要传
+payment的配置注入提上方法都可以，最重要的还是配置要传
+
 ```java
      AliPayment aliPayment = new AliPaymentService(new AliPayConfigure());
 ```
+
+---
 
 ```java
 
