@@ -178,7 +178,7 @@ public interface AliPayment {
         model.setTotal_amount(BigDecimal.valueOf(1.11));
         model.setSubject("订单标题");
         model.setBody("body");//不是必填
-        model.setPassback_params("asd");//需要鸳原样返回的数据
+        model.setPassback_params("asd");//需要原样返回的数据
         model.setOut_trade_no("123123123");//订单编号
 
         AliPayTradePage payTradePage = aliPayment.pagePay(model);
@@ -201,7 +201,7 @@ public interface AliPayment {
         model.setOut_trade_no("123123123");//订单编号
         model.setTotal_amount(BigDecimal.valueOf(1.11));
         model.setBody("body");//不是必填
-        model.setPassback_params("asd");//需要鸳原样返回的数据
+        model.setPassback_params("asd");//需要原样返回的数据
 
         AlipayTradeWapPay wapPay = aliPayment.wapPay(model);
         return wapPay;
