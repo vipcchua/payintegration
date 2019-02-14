@@ -329,7 +329,7 @@ public interface AliPayment {
 因为支付宝的对账单是以下载文件的形式，所以想要读取对账单需要读取支付宝下载下来的CSV文件 ，默认的bill方法中filePath  是会将CSV文件读取完成后将下载下来的CSV文件删除的 在方法  **AliPayAccountStatementService**  中提供了更多的方法让你读取、下载支付支付宝的对账单文件
 
 ```java
-            String day = "2018-12-25";
+        String day = "2018-12-25";
         String filePath = "D://dowm/";
         String zipfilePath = "D://dowm/";
 
@@ -359,7 +359,7 @@ public interface AliPayment {
 ---
 
 ```java
-	public class IntegratedPayService implements IntegratedPay {
+public class IntegratedPayService implements IntegratedPay {
 
     public final String WeChat = "WeChat";
 
