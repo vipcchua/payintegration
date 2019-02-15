@@ -75,18 +75,29 @@
 
 ---
 ```java
+
+		//方法1
+		
         FastPayAliPay f1 = new FastPayAliPayBuilder().build();
         AliPayment a1 = f1.getAliPayment(new AliPayConfigure());
-
+		
+		//方法2
+		
         FastPayAliPay f2 = new FastPayAliPayBuilder().build(new AliPayConfigure());
         AliPayment a2 = f2.getAliPayment();
-
+		
+		//方法3
+		
         FastPayAliPay f3 = new FastPayAliPayService(new AliPayConfigure());
         AliPayment a3 = f3.getAliPayment();
-
+		
+		//方法4
+		
         FastPayAliPay f4 = new FastPayAliPayService();
         AliPayment a4 = f4.getAliPayment(new AliPayConfigure());
-
+		
+		//方法5
+		
         AliPayment a5 = new AliPaymentService(new AliPayConfigure());
 ```
 
@@ -100,7 +111,7 @@
 ####  支付宝支付快速接入
 ---
 
-因为支付宝和微信其实每一步操作都是需要配置文件里面的相关信息的， ** 所以每一个操作都是要带上你的config**，当然你可以让你的配置文件持续放在内存里面这样可以有效减少让java不断去读取内存的次数，这里没有做成自动注入的主要原因还是如果项目有多个支付账户的时候，可以让用户自行决定与哪个账户发生相关操作
+因为支付宝和微信其实每一步操作都是需要配置文件里面的相关信息的， **所以每一个操作都是要带上你的config**，当然你可以让你的配置文件持续放在内存里面这样可以有效减少让java不断去读取内存的次数，这里没有做成自动注入的主要原因还是如果项目有多个支付账户的时候，可以让用户自行决定与哪个账户发生相关操作
 
 ####  支付宝快速接入
 
@@ -538,18 +549,29 @@ public class IntegratedPayService implements IntegratedPay {
 ####  微信配置方法使用
 ---
 ```java
+
+		//方法1
+		
         FastPayWeChat w1 = new FastPayWeChatBuilder().build(new WechatConfigure());
         WeChatPayment b1 = w1.getWeChatPayment();
 
+		//方法2
+		
         FastPayWeChat w2 = new FastPayWeChatBuilder().build();
         WeChatPayment b2 = w2.getWeChatPayment(new WechatConfigure());
 
+		//方法3
+		
         FastPayWeChat w3 = new FastPayWeChatService(new WechatConfigure());        
         WeChatPayment b3 = w3.getWeChatPayment();
 
+		//方法4		
+		
         FastPayWeChat w4 = new FastPayWeChatService();
         WeChatPayment b4 = w4.getWeChatPayment(new WechatConfigure());
 
+		//方法5
+		
         WeChatPayment b5 = new WeChatPaymentService(new WechatConfigure());
 ```
 ---
